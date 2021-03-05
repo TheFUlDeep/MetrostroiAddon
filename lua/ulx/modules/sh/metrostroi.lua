@@ -459,7 +459,7 @@ function ulx.tps( calling_ply,station )
 		
 		--ищу совпадения
 		local founds = {}
-		for lowername,positions in pairs(LoweredStationsNamesPositions)do
+		for lowername in pairs(LoweredStationsNamesPositions)do
 			if lowername:find(station,1,true) then
 				table.insert(founds,lowername)
 			end
@@ -481,11 +481,11 @@ function ulx.tps( calling_ply,station )
 			-- calling_ply:SetAngles(ptbl[2])
 			-- calling_ply:SetEyeAngles(ptbl[2])
 			ulx.fancyLogAdmin( calling_ply, "#A teleported to #s", foundname)
+			hook.Run("MetrostroiPlayerTeleportedToStation", calling_ply,foundname)
 		--если совпадений больше чем одно, то вывести список совпадений
 		elseif foundsCount > 1 then
 			ULib.tsayError( calling_ply,  Format("More than 1 station for name %s:",station), true )
 			for _,index in pairs(founds)do
-				print(StationIndexesNames[index])
 				local str
 				for _,name in pairs(StationIndexesNames[index] and StationIndexesNames[index][1] or {}) do
 					str = str or index
